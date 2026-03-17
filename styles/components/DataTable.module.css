@@ -1,4 +1,24 @@
-.container { overflow-x: auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06); }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-th { background: #f8fafc; font-size: .9rem; color: #334155; }
+.container {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.headCell,
+.cell {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.headCell {
+  background: #f8fafc;
+  font-size: 0.9rem;
+  color: #334155;
+}

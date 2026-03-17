@@ -8,11 +8,11 @@ interface DataTableProps {
 export function DataTable({ headers, rows }: DataTableProps) {
   return (
     <div className={styles.container}>
-      <table>
+      <table className={styles.table}>
         <thead>
           <tr>
             {headers.map((header) => (
-              <th key={header}>{header}</th>
+              <th key={header} className={styles.headCell}>{header}</th>
             ))}
           </tr>
         </thead>
@@ -20,7 +20,7 @@ export function DataTable({ headers, rows }: DataTableProps) {
           {rows.map((row, rowIndex) => (
             <tr key={`${rowIndex}-${row[0]}`}>
               {row.map((cell, cellIndex) => (
-                <td key={`${rowIndex}-${cellIndex}`}>{cell}</td>
+                <td key={`${rowIndex}-${cellIndex}`} className={styles.cell}>{cell}</td>
               ))}
             </tr>
           ))}
