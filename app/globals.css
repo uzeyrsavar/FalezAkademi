@@ -1,0 +1,7 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; color: #0f172a; background: #f8fafc; }
+a { color: inherit; }
+.container { max-width: 1200px; margin: 0 auto; }
+.pageCard { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
+.statusDone { color: #15803d; font-weight: 600; }
+.statusPending { color: #b91c1c; font-weight: 600; }
