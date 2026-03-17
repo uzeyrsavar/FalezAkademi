@@ -1,0 +1,6 @@
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.card { background: white; border-radius: 12px; padding: 14px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06); display: grid; gap: 8px; }
+.card strong { font-size: 1.3rem; color: #0f172a; }
+.default { border-left: 4px solid #3b82f6; }
+.success { border-left: 4px solid #10b981; }
+.danger { border-left: 4px solid #ef4444; }

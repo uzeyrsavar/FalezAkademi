@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; color: #0f172a; background: #f8fafc; }
+a { color: inherit; }
+.container { max-width: 1200px; margin: 0 auto; }
+.pageCard { background: white; border-radius: 12px; padding: 16px; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
+.statusDone { color: #15803d; font-weight: 600; }
+.statusPending { color: #b91c1c; font-weight: 600; }
+
+.pagePadding { padding: 24px; }
+.narrowContainer { max-width: 480px; }
+.rowGap12 { display: flex; gap: 12px; flex-wrap: wrap; }
+.gridGap8 { display: grid; gap: 8px; }
+.gridGap10 { display: grid; gap: 10px; }
+.gridGap12 { display: grid; gap: 12px; }
+.spacer16 { height: 16px; }
+.marginBottom12 { margin-bottom: 12px; }
+.marginBottom16 { margin-bottom: 16px; }
+.marginTop12 { margin-top: 12px; }
+.linkInline { margin-right: 8px; }
+.taskCard { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; }
