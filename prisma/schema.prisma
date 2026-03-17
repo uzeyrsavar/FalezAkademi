@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  TEACHER
+  STUDENT
+  ADMIN
+}
+
+enum StudyField {
+  SAYISAL
+  ESIT_AGIRLIK
+  SOZEL
+  DIL
+}
+
+enum TaskStatus {
+  YAPILMADI
+  DEVAM_EDIYOR
+  TAMAMLANDI
+}
+
+enum AttendanceStatus {
+  VAR
+  DEVAMSIZ
+  IZINLI
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  role          UserRole
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  teacher       Teacher?
+  student       Student?
+  notifications Notification[]
+}
+
+model Teacher {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  user         User      @relation(fields: [userId], references: [id])
+  institution  String?
+  students     Student[]
+  weeklyPlans  WeeklyProgram[]
+  notes        Note[]
+  attendances  Attendance[]
+}
+
+model Student {
+  id              String      @id @default(cuid())
+  userId           String      @unique
+  teacherId        String
+  fullName         String
+  grade            String
+  field            StudyField
+  phone            String
+  parentName       String?
+  parentPhone      String?
+  isActive         Boolean     @default(true)
+  profileNote      String?
+  createdAt        DateTime    @default(now())
+  user             User        @relation(fields: [userId], references: [id])
+  teacher          Teacher     @relation(fields: [teacherId], references: [id])
+  weeklyPrograms   WeeklyProgram[]
+  taskStatuses     TaskStatusLog[]
+  attendanceRecord AttendanceRecord[]
+  notes            Note[]
+  progress         StudentProgress[]
+}
+
+model WeeklyProgram {
+  id          String              @id @default(cuid())
+  teacherId   String
+  studentId   String
+  weekStart   DateTime
+  templateKey String?
+  createdAt   DateTime            @default(now())
+  teacher     Teacher             @relation(fields: [teacherId], references: [id])
+  student     Student             @relation(fields: [studentId], references: [id])
+  items       WeeklyProgramItem[]
+}
+
+model WeeklyProgramItem {
+  id            String        @id @default(cuid())
+  weeklyProgramId String
+  lesson        String
+  topic         String
+  questionCount Int
+  description   String?
+  dueDate       DateTime
+  priority      Int           @default(2)
+  statusLogs    TaskStatusLog[]
+  weeklyProgram WeeklyProgram @relation(fields: [weeklyProgramId], references: [id])
+}
+
+model TaskStatusLog {
+  id            String          @id @default(cuid())
+  studentId      String
+  weeklyItemId   String
+  status         TaskStatus
+  studentNote    String?
+  updatedAt      DateTime        @default(now())
+  student        Student         @relation(fields: [studentId], references: [id])
+  weeklyItem     WeeklyProgramItem @relation(fields: [weeklyItemId], references: [id])
+}
+
+model Attendance {
+  id         String             @id @default(cuid())
+  teacherId  String
+  date       DateTime
+  summary    String?
+  teacher    Teacher            @relation(fields: [teacherId], references: [id])
+  records    AttendanceRecord[]
+}
+
+model AttendanceRecord {
+  id            String           @id @default(cuid())
+  attendanceId  String
+  studentId     String
+  status        AttendanceStatus
+  note          String?
+  attendance    Attendance       @relation(fields: [attendanceId], references: [id])
+  student       Student          @relation(fields: [studentId], references: [id])
+}
+
+model Note {
+  id               String    @id @default(cuid())
+  teacherId        String
+  studentId        String
+  content          String
+  visibleToStudent Boolean   @default(false)
+  createdAt        DateTime  @default(now())
+  teacher          Teacher   @relation(fields: [teacherId], references: [id])
+  student          Student   @relation(fields: [studentId], references: [id])
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model StudentProgress {
+  id           String   @id @default(cuid())
+  studentId    String
+  score        Int
+  periodType   String
+  periodStart  DateTime
+  periodEnd    DateTime
+  createdAt    DateTime @default(now())
+  student      Student  @relation(fields: [studentId], references: [id])
+}
+
+model LessonTemplate {
+  id          String   @id @default(cuid())
+  field       StudyField
+  name        String
+  lessonList  String
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
