@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/components/AppShell.module.css';
 
@@ -5,7 +6,7 @@ interface AppShellProps {
   title: string;
   subtitle: string;
   links: { href: string; label: string }[];
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function AppShell({ title, subtitle, links, children }: AppShellProps) {
